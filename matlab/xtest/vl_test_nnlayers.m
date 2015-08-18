@@ -31,18 +31,22 @@ for l = tests
   switch l
     case 1
       disp('testing vl_nnsoftamxloss multiple images convolutional') ;
-      C = 10 ;
-      n = 3 ;
+      C = 10 ; % Number of channels; feature dimensionality at each pixel
+      n = 3 ; % number of images
 
       for multilab = [false true]
+        
+        % c: class label vector. size of c either number of data (n) or
+        % number of pixels x data. HxWx1,n
         if multilab
           c = reshape(mod(0:3*4*n-1,C)+1, 3, 4, 1, n) ;
         else
-          c = [7 2 1] ;
+          c = [7 2 1] ; 
         end
 
         % compare direct and indirect composition; this cannot
         % take large ranges
+        % H: 3; W: 4; C: #channels (depth)
         x = grand(3,4,C,n)/range + 0.001 ; % non-negative
         y = vl_nnsoftmaxloss(x,c) ;
         y_ = vl_nnloss(vl_nnsoftmax(x),c) ;

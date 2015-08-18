@@ -145,6 +145,18 @@ if nargin <= 3 || isempty(res)
 end
 res(1).x = x ;
 
+% MKSNOTE (2015 August 15): Defining a net structure does not fully specify
+% the neural network. For example, it does not connect the inputs and
+% outputs of various layers to each other. So, just using the net
+% structure, one cannot construct the NN. Also, functions to evaluate the
+% layer are not bound to it.Hence, cannot run the CNN on a it or train it
+% either). This definition is not provided anywhere. The codes in the
+% examples directory shows one can manually use the net structure for
+% trainining and running the NN. 
+% In this file, 
+% individually evaluated. For example, in the following,
+% loop over i decides what layer
+
 for i=1:n
   l = net.layers{i} ;
   res(i).time = tic ;
