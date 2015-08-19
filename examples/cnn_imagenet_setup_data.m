@@ -36,7 +36,7 @@ function imdb = cnn_imagenet_setup_data(varargin)
 %    sufficient RAM is available). Reading images off disk with a
 %    sufficient speed is crucial for fast training.
 
-opts.dataDir = 'data/imagenet12' ;
+opts.dataDir = fullfile('data','imagenet12') ;
 opts.lite = false ;
 opts = vl_argparse(opts, varargin) ;
 
@@ -178,16 +178,17 @@ imdb.images.label(ok) = relabel(imdb.images.label(ok)) ;
 if opts.lite
   % pick a small number of images for the first 10 classes
   % this cannot be done for test as we do not have test labels
+  clear keep ;
   for i=1:10
     sel = find(imdb.images.label == i) ;
     train = sel(imdb.images.set(sel) == 1) ;
     val = sel(imdb.images.set(sel) == 2) ;
-    train = train(1:10) ;
-    val = val(1:3) ;
+    train = train(1:256) ;
+    val = val(1:40) ;
     keep{i} = [train val] ;
   end
   test = find(imdb.images.set == 3) ;
-  keep = sort(cat(2, keep{:}, test(1:30))) ;
+  keep = sort(cat(2, keep{:}, test(1:1000))) ;
   imdb.images.id = imdb.images.id(keep) ;
   imdb.images.name = imdb.images.name(keep) ;
   imdb.images.set = imdb.images.set(keep) ;

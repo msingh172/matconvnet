@@ -31,7 +31,7 @@
           CXX="$NVCC"
           DEFINES="--compiler-options=-D_GNU_SOURCE,$MATLABMEX"
           MATLABMEX="-DMATLAB_MEX_FILE"
-          NVCCFLAGS="-gencode=arch=compute_13,code=sm_13 -gencode=arch=compute_20,code=sm_20 -gencode=arch=compute_30,code=&#92;&quot;sm_30,compute_30&#92;&quot; $NVCC_FLAGS"
+          NVCCFLAGS="-gencode=arch=compute_20,code=sm_20 -gencode=arch=compute_30,code=&#92;&quot;sm_30,compute_30&#92;&quot; $NVCC_FLAGS"
           CXXFLAGS="--compiler-options=-ansi,-fexceptions,-fPIC,-fno-omit-frame-pointer,-pthread"
           INCLUDE="-I&quot;$MATLABROOT/extern/include&quot; -I&quot;$MATLABROOT/simulink/include&quot; -I&quot;$MATLABROOT/toolbox/distcomp/gpu/extern/include/&quot;"
           CXXOPTIMFLAGS="-O -DNDEBUG"
@@ -41,7 +41,7 @@
           LDFLAGS="-pthread -Wl,--no-undefined "
           LDTYPE="-shared"
           LINKEXPORT="-Wl,--version-script,&quot;$MATLABROOT/extern/lib/$ARCH/mexFunction.map&quot;"
-          LINKLIBS="-Wl,-rpath-link,$MATLABROOT/bin/$ARCH -L&quot;$MATLABROOT/bin/$ARCH&quot; -lmx -lmex -lmat -lm -lmwgpu $MATLABROOT/bin/$ARCH/libcudart.so.5.5"
+          LINKLIBS="-Wl,-rpath-link,$MATLABROOT/bin/$ARCH -L&quot;$MATLABROOT/bin/$ARCH&quot; -lmx -lmex -lmat -lm -lmwgpu $MATLABROOT/bin/$ARCH/libcudart.so.[0-9].[0-9]"
           LDOPTIMFLAGS="-O"
           LDDEBUGFLAGS="-g"
 
@@ -62,7 +62,6 @@
                 <fileExists name="/usr/local/cuda-5.5/bin/nvcc" />
             </or>
         </NVCC>
-
         <GCC>
             <cmdReturns name="which g++" />
         </GCC>
